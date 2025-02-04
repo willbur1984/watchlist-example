@@ -5,6 +5,8 @@
 //  Created by William Towe on 2/3/25.
 //
 
+import Feige
+import Foundation
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -16,7 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else {
             return
         }
-        self.window = UIWindow(windowScene: windowScene)
+        self.window = UIWindow(windowScene: windowScene).also {
+            $0.backgroundColor = .tertiarySystemBackground
+            $0.rootViewController = RootViewController()
+        }
+        self.window?.makeKeyAndVisible()
     }
 }
 

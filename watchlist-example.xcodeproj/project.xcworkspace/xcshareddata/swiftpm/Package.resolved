@@ -1,0 +1,24 @@
+{
+  "originHash" : "195699b41957e1522de3fd7faf31cf4a14c9b49df85fff2e836fc0b27bd7ca2c",
+  "pins" : [
+    {
+      "identity" : "feige",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kosoku/Feige.git",
+      "state" : {
+        "revision" : "dcc839c138006436eb025184206c8d8eefbff383",
+        "version" : "2.2.3"
+      }
+    },
+    {
+      "identity" : "romita",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kosoku/Romita.git",
+      "state" : {
+        "revision" : "fa05a60bfaa64301a926fc434a89e0cbddd1b721",
+        "version" : "2.2.1"
+      }
+    }
+  ],
+  "version" : 3
+}
