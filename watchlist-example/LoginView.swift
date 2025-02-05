@@ -5,10 +5,8 @@
 //  Created by William Towe on 2/3/25.
 //
 
-import Feige
 import Foundation
 import SwiftUI
-import UIKit
 
 struct LoginView: View {
     // MARK: - Public Properties
@@ -45,10 +43,10 @@ struct LoginView: View {
             })
             .buttonStyle(.borderedProminent)
             .disabled(viewModel.canLogin.not())
-            .alert(String(localized: "login.alert", defaultValue: "Error"), isPresented: $isDisplayingLoginAlert) {
-                Button(String(localized: "button.okay", defaultValue: "Okay"), role: .cancel) {}
+            .alert(String.alertTitle, isPresented: $isDisplayingLoginAlert) {
+                Button(String.buttonOkay, role: .cancel) {}
             } message: {
-                Text(loginError?.localizedDescription ?? String(localized: "login.error", defaultValue: "Something went wrong. Please try again later."))
+                Text(loginError?.localizedDescription ?? .alertMessage)
             }
             Spacer()
         }

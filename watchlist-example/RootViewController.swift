@@ -20,7 +20,7 @@ final class RootViewController: UINavigationController {
         super.viewDidLoad()
         
         self.viewControllers = [
-            WatchlistViewController()
+            WatchlistsViewController()
         ]
     }
     

@@ -57,11 +57,6 @@ final class LoginViewModel: BaseViewModel, ObservableObject {
         
         super.init()
         
-        Task {
-            self.username = await self.networkManager.username() ?? ""
-            self.password = await self.networkManager.password() ?? ""
-        }
-        
         self.$username.removeDuplicates()
             .combineLatest(self.$password.removeDuplicates(), self.$isLoggingIn.removeDuplicates())
             .map { username, password, isLoggingIn in

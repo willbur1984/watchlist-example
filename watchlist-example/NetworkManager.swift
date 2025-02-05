@@ -60,6 +60,11 @@ private final class NetworkRequestInterceptor: RequestInterceptor {
 }
 
 final class NetworkManager: BaseViewModel {
+    // MARK: - Public Types
+    enum NetworkError: Error {
+        case emptySessionToken
+    }
+    
     // MARK: - Public Properties
     var isLoggedIn: AnyPublisher<Bool, Never> {
         self.$sessionToken
@@ -79,13 +84,12 @@ final class NetworkManager: BaseViewModel {
     }
     private static let session = Session(interceptor: NetworkRequestInterceptor(), eventMonitors: [NetworkEventMonitor()])
     private static let valet = Valet.valet(with: Identifier(nonEmpty: String(describing: NetworkManager.self))!, accessibility: .afterFirstUnlockThisDeviceOnly)
-    private static let usernameKey = "\(NetworkManager.self).username"
-    private static let passwordKey = "\(NetworkManager.self).password"
     private static let sessionTokenKey = "\(NetworkManager.self).session-token"
     @Published
     private var sessionToken: String? {
         didSet {
             guard let sessionToken = self.sessionToken else {
+                try? Self.valet.removeObject(forKey: Self.sessionTokenKey)
                 return
             }
             try? Self.valet.setString(sessionToken, forKey: Self.sessionTokenKey)
@@ -93,16 +97,8 @@ final class NetworkManager: BaseViewModel {
     }
     
     // MARK: - Public Functions
-    func username() async -> String? {
-        try? Self.valet.string(forKey: Self.usernameKey)
-    }
-    
-    func password() async -> String? {
-        try? Self.valet.string(forKey: Self.passwordKey)
-    }
-    
     func login(username: String, password: String) async throws -> LoginResponse {
-        let retval = try await Self.session.request(
+        try await Self.session.request(
             URL(string: "sessions", relativeTo: Self.baseURL)!,
             method: .post,
             parameters: [
@@ -110,10 +106,22 @@ final class NetworkManager: BaseViewModel {
                 "password": password,
                 "remember-me": false
             ]).serializingDecodable(LoginResponse.self, decoder: Self.decoder).value
-        
-        try Self.valet.setString(username, forKey: Self.usernameKey)
-        try Self.valet.setString(password, forKey: Self.passwordKey)
-        
+    }
+    
+    func watchlists() async throws -> WatchlistsResponse {
+        try await Self.session.request(
+            URL(string: "watchlists", relativeTo: Self.baseURL)!,
+            headers: [
+                .authorization(sessionTokenOrThrow())
+            ]
+        ).serializingDecodable(WatchlistsResponse.self, decoder: Self.decoder).value
+    }
+    
+    // MARK: - Private Functions
+    private func sessionTokenOrThrow() throws(NetworkError) -> String {
+        guard let retval = self.sessionToken?.nilIfEmpty else {
+            throw NetworkError.emptySessionToken
+        }
         return retval
     }
     
