@@ -1,6 +1,15 @@
 {
-  "originHash" : "195699b41957e1522de3fd7faf31cf4a14c9b49df85fff2e836fc0b27bd7ca2c",
+  "originHash" : "5ea8dcbe83c61c3f95e8a950753bd349825d0eae361502292611a2f1f10271d2",
   "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
     {
       "identity" : "feige",
       "kind" : "remoteSourceControl",
@@ -17,6 +26,15 @@
       "state" : {
         "revision" : "fa05a60bfaa64301a926fc434a89e0cbddd1b721",
         "version" : "2.2.1"
+      }
+    },
+    {
+      "identity" : "valet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/square/Valet.git",
+      "state" : {
+        "revision" : "05c9e514fbd352a6866877ca31326b4e0b7d6d01",
+        "version" : "5.0.0"
       }
     }
   ],

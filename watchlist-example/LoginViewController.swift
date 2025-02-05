@@ -29,6 +29,15 @@ final class LoginViewController: BaseHostingController<LoginView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.viewModel.isLoggedIn
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self, $0 else {
+                    return
+                }
+                self.presentingViewController?.dismiss(animated: true)
+            }
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Initializers

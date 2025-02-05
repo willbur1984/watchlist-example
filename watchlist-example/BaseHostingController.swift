@@ -5,11 +5,15 @@
 //  Created by William Towe on 2/4/25.
 //
 
+import Combine
 import Foundation
 import SwiftUI
 import UIKit
 
 class BaseHostingController<Content>: UIHostingController<Content> where Content: View {
+    // MARK: - Public Properties
+    lazy var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Public Functions
     func setup() {
         
