@@ -17,8 +17,8 @@ struct WatchlistsView: View {
     // MARK: - View
     var body: some View {
         List {
-            ForEach(viewModel.watchlists) { watchlist in
-                Text(watchlist.name)
+            ForEach(viewModel.watchlists) {
+                Text($0.name)
             }
         }
         .refreshable {
@@ -39,12 +39,12 @@ struct WatchlistsView: View {
         }
         .overlay {
             if viewModel.watchlists.isEmpty {
-                ContentUnavailableView(String(localized: "watchlist.empty.title", defaultValue: "No Watchlists"), systemImage: "list.bullet", description: Text(String(localized: "watchlist.empty.description", defaultValue: "Tap the plus icon to create a watchlist.")))
+                ContentUnavailableView(String(localized: "watchlists.empty.title", defaultValue: "No Watchlists"), systemImage: "list.bullet", description: Text(String(localized: "watchlists.empty.description", defaultValue: "Tap the plus icon to create a watchlist.")))
             }
         }
         .overlay {
             if viewModel.isLoggedIn.not() {
-                ContentUnavailableView(String(localized: "watchlist.logged-out.title", defaultValue: "Logged Out"), systemImage: "person", description: Text(String(localized: "watchlist.logged-out.description", defaultValue: "Login to view your watchlists.")))
+                ContentUnavailableView(String(localized: "watchlists.logged-out.title", defaultValue: "Logged Out"), systemImage: "person", description: Text(String(localized: "watchlist.logged-out.description", defaultValue: "Login to view your watchlists.")))
             }
         }
     }

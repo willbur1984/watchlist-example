@@ -117,6 +117,12 @@ final class NetworkManager: BaseViewModel {
         ).serializingDecodable(WatchlistsResponse.self, decoder: Self.decoder).value
     }
     
+    func search(_ searchText: String) async throws -> SearchResponse {
+        try await Self.session.request(
+            URL(string: "\(searchText)", relativeTo: URL(string: "https://vast.tastyworks.com/symbols/search/"))!
+        ).serializingDecodable(SearchResponse.self, decoder: Self.decoder).value
+    }
+    
     // MARK: - Private Functions
     private func sessionTokenOrThrow() throws(NetworkError) -> String {
         guard let retval = self.sessionToken?.nilIfEmpty else {

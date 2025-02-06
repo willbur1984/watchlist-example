@@ -5,6 +5,7 @@
 //  Created by William Towe on 2/3/25.
 //
 
+import Feige
 import Foundation
 import SwiftUI
 import UIKit
@@ -15,7 +16,9 @@ final class LoginViewController: BaseHostingController<LoginView> {
     
     // MARK: - Public Functions
     static func forPresenting() -> UIViewController {
-        UINavigationController(rootViewController: LoginViewController())
+        UINavigationController(rootViewController: LoginViewController()).also {
+            $0.modalPresentationStyle = .formSheet
+        }
     }
     
     // MARK: - Override Functions

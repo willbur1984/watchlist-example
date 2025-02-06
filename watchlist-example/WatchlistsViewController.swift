@@ -18,7 +18,7 @@ final class WatchlistsViewController: BaseHostingController<WatchlistsView> {
         
         self.title = "Watchlists"
         self.navigationItem.rightBarButtonItem = .init(systemItem: .add, primaryAction: .init(handler: { _ in
-            
+            self.present(CreateWatchlistViewController.forPresenting(), animated: true)
         }))
     }
     
